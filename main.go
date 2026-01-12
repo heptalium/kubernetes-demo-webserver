@@ -30,6 +30,9 @@ func main() {
 	// Enable backend check if configured
 	setupBackend()
 
+	// Create data directory if configured
+	setupDataDir()
+
 	// Wait some time before serving requests
 	go func() {
 		time.Sleep(time.Duration(config.StartDelay) * time.Second)
@@ -57,6 +60,8 @@ func main() {
 
 		http.Handle(prefix+"/config", loggingMiddleware(healthyMiddleware(http.HandlerFunc(handleConfig))))
 		http.Handle(prefix+"/status", loggingMiddleware(http.HandlerFunc(handleStatus)))
+
+		http.Handle(prefix+"/upload", loggingMiddleware(healthyMiddleware(http.HandlerFunc(handleUpload))))
 	}
 
 	// Start web service
