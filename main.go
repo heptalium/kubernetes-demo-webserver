@@ -62,6 +62,8 @@ func main() {
 		http.Handle(prefix+"/status", loggingMiddleware(http.HandlerFunc(handleStatus)))
 
 		http.Handle(prefix+"/upload", loggingMiddleware(healthyMiddleware(http.HandlerFunc(handleUpload))))
+
+		http.Handle(prefix+"/color", loggingMiddleware(healthyMiddleware(http.HandlerFunc(handleColor))))
 	}
 
 	// Start web service
